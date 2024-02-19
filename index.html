@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregunta</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+    }
+    .boton {
+        padding: 0.5em 1em; /* Ajustar el relleno */
+        font-size: 3vw; /* Tamaño de la fuente basado en el ancho de la ventana */
+        margin: 20px 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: none;
+        transition: all 0.3s ease;
+        width: 30%; /* Ancho del 30% del tamaño de la ventana */
+        height: auto; /* Altura automática para mantener la relación 1:1 */
+    }
+    #boton-si {
+        background-color: green;
+        color: white;
+    }
+    #boton-no {
+        background-color: red;
+        color: white;
+    }
+    .pregunta {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    #preguntaAnterior {
+        font-size: 18px;
+    }
+</style>
+</head>
+<body>
+    <div id="pregunta" class="pregunta">¿ME DAS CHIQUITO?</div>
+    <button class="boton" id="boton-si">Sí</button>
+    <button class="boton" id="boton-no">No</button>
+    <div id="preguntaAnterior"></div>
+
+    <script>
+        var textosNo = [
+            "¿Por qué no lo consideras?",
+            "Di que si",
+            "¿Estás realmente segura de tu decisión?",
+            "¿Realmente crees que no lo necesitas?",
+            "¡Vamos!",
+            "¿No te gustaría reconsiderar tu posición?",
+            "¿Estás absolutamente segura de que no?",
+            "¿De verdad estás convencida?",
+            "¿Me das la oportunidad de convencerte?",
+            "¿Seguro que no quieres cambiar de opinión?",
+            "Hazlo, di que si",
+            "¿De verdad estás segura de eso?",
+            "No lo dudes",
+            "¿Y si mejor dices si?",
+            "¿No piensas darle otra oportunidad?",
+            "¿De verdad no quieres pensar en ello otra vez?"
+        ];
+
+        var colores = ["red", "blue", "green", "purple", "orange", "brown", "yellow", "cyan", "magenta", "pink"];
+
+        var mensaje = "¡¡SIIIIIIIII, SUUUUPEEEEEER, YA QUIEEEROOOOOO!!";
+
+        var fontSizeNo = 3; // Tamaño inicial del botón "No"
+        var fontSizeSi = 3; // Tamaño inicial del botón "Sí"
+
+        document.getElementById("boton-no").style.fontSize = fontSizeNo + "vw";
+
+        document.getElementById("boton-no").onclick = function() {
+            var indice = Math.floor(Math.random() * textosNo.length);
+            var pregunta = textosNo[indice];
+            var preguntaAnterior = document.getElementById("preguntaAnterior");
+            preguntaAnterior.textContent = pregunta; // Cambiar el texto del elemento existente
+            this.style.fontSize = (fontSizeNo -= 0.5) + "vw"; // Disminuir el tamaño del botón "No" por 0.5vw
+            document.getElementById("boton-si").style.fontSize = (fontSizeSi += 0.5) + "vw"; // Aumentar el tamaño del botón "Sí" por 0.5vw
+        };
+
+        document.getElementById("boton-si").onclick = function() {
+            var mensajeCelebracion = document.createElement("div");
+            mensajeCelebracion.textContent = mensaje;
+            mensajeCelebracion.style.fontSize = "2em"; // Tamaño del texto de celebración
+            var letras = mensaje.split("");
+            mensajeCelebracion.innerHTML = "";
+            letras.forEach(function(letra, index) {
+                var span = document.createElement("span");
+                span.textContent = letra;
+                span.style.color = colores[index % colores.length]; // Asignar colores diferentes a cada letra
+                mensajeCelebracion.appendChild(span);
+            });
+            document.body.innerHTML = ""; // Limpiar el cuerpo del documento
+            document.body.appendChild(mensajeCelebracion); // Mostrar el mensaje de celebración
+
+            var preguntaEvento = document.createElement("div");
+            preguntaEvento.textContent = "¿Para cuando organizamos el evento?";
+            preguntaEvento.className = "pregunta";
+            document.body.appendChild(preguntaEvento); // Mostrar la pregunta para organizar el evento
+        };
+    </script>
+</body>
+</html>
